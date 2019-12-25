@@ -4,5 +4,8 @@
 freesurfer-osg.xml
 license.txt
 sites.xml
-
-
+tests
+config.json
+.status
+work
+run.yml
