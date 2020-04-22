@@ -1,5 +1,8 @@
 #!/bin/bash
 
+#clean up from the last run
+rm -f stopped
+
 set -x
 set -e
 
@@ -18,11 +21,46 @@ if [ $t2 != "null" ]; then
 	echo "    T2: " $(jq -r .t2 config.json) >> run.yml
 fi
 
-#TODO - expose options
-options="" 
-if [ $options != "" ]; then
-	echo "    autorecon-options: $options" >> run.yml
+hires=`jq -r .hires config.json`
+notalcheck=`jq -r .notalcheck config.json`
+cw256=`jq -r .cw256 config.json`
+debug=`jq -r .debug config.json`
+hippocampal=`jq -r .hippocampal config.json`
+
+options=""
+#I am not sure how we can pass the t2 path like this with freesurfer-osg
+#if [ -f $t2 ]; then
+#    options="$options -T2 $t2 -T2pial"
+#    #https://surfer.nmr.mgh.harvard.edu/fswiki/HippocampalSubfields
+#    #https://surfer.nmr.mgh.harvard.edu/fswiki/HippocampalSubfieldsAndNucleiOfAmygdala
+#    if [ $hippocampal == "true" ]; then
+#        options="$options -hippocampal-subfields-T1T2 $t2 t1t2"
+#    fi
+#else
+#    if [ $hippocampal == "true" ]; then
+#        options="$options -hippocampal-subfields-T1"
+#    fi
+#fi
+
+if [ $hires == "true" ]; then
+    options="$options -hires"
 fi
+if [ $notalcheck == "true" ]; then
+    options="$options -notal-check"
+fi
+if [ $cw256 == "true" ]; then
+    options="$options -cw256"
+fi
+if [ $debug == "true" ]; then
+    options="$options -debug"
+fi
+
+if [ "$options" != "" ]; then
+	echo "    autorecon-options:$options" >> run.yml
+fi
+
+echo "submitting with this this config"
+cat run.yml
 
 # generate the workflow
 ./workflow-generator.py --inputs-def run.yml
@@ -40,3 +78,9 @@ pegasus-plan \
     --dax freesurfer-osg.xml \
     --cluster horizontal \
     --submit
+
+echo "sleeping a bit - so that status.sh works"
+sleep 20
+
+./status.sh
+

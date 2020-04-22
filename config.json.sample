@@ -1,5 +1,9 @@
 {
-    "t1": "tests/t1.nii.gz",
-    "t2": "tests/t2.nii.gz"
+    "t1": "testdata/dt-neuro-anat-t1w.id-5b3402c316fe38002748e90e/t1.nii.gz",
+    "t2": "testdata/dt-neuro-anat-t2w.id-5b34037a16fe38002748e90f/t2.nii.gz",
+    "notalcheck": false,
+    "hires": false,
+    "cw256": true,
+    "debug": true 
 }
 

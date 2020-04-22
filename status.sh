@@ -12,6 +12,11 @@ if [ -f finished ]; then
     exit 1
 fi
 
+if [ -f stopped ]; then
+    echo "job stopped"
+    exit 3
+fi
+
 pegasus-status -l work -D s > .status
 jobstate=$(cat .status | tail -2  | head -1)
 if [ -z "$jobstate" ]; then
@@ -21,7 +26,7 @@ fi
 #	exit 0
 #fi
 if [ "$jobstate" == "Running" ]; then
-	cat .status
+	cat .status | grep "Run "
 	exit 0
 fi
 #if [ $jobstate == "DELETE PENDING" ]; then
@@ -36,6 +41,7 @@ if [ "$jobstate" == "Failure" ]; then
 	exit 2
 fi
 if [ "$jobstate" == "COMPLETED" ]; then
+	touch finished
 	exit 1
 fi
 
