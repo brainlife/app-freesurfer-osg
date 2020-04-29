@@ -5,8 +5,8 @@
         <directory type="shared-scratch" path="/public/$USER/scratch/$RUN_ID">
             <file-server operation="all" url="file:///public/$USER/scratch/$RUN_ID"/>
         </directory>
-        <directory type="local-storage" path="$WORK_DIR/outputs/$RUN_ID">
-            <file-server operation="all" url="file://$WORK_DIR/outputs/$RUN_ID"/>
+        <directory type="local-storage" path="$WORK_DIR/outputs">
+            <file-server operation="all" url="file://$WORK_DIR/outputs"/>
         </directory>
     </site>
 

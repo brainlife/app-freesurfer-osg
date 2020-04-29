@@ -6,9 +6,11 @@ rm -f stopped
 set -x
 set -e
 
+[ -z "$FREESURFER_LICENSE" ] && echo "Please set FREESURFER_LICENSE in .bashrc" && exit 1;
 echo $FREESURFER_LICENSE > license.txt
 
 # create the site catalog from the template
+export WORK_DIR=$(realpath .)
 envsubst < sites.xml.template > sites.xml
 
 cat <<EOF > run.yml
@@ -80,7 +82,7 @@ pegasus-plan \
     --submit
 
 echo "sleeping a bit - so that status.sh works"
-sleep 20
+sleep 10
 
 ./status.sh
 

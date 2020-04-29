@@ -27,6 +27,7 @@ fi
 #fi
 if [ "$jobstate" == "Running" ]; then
 	cat .status | grep "Run "
+	pegasus-analyzer work
 	exit 0
 fi
 #if [ $jobstate == "DELETE PENDING" ]; then
@@ -37,7 +38,7 @@ fi
 #fi
 if [ "$jobstate" == "Failure" ]; then
 	#TODO - pegasus reports Failure even if I stop the workflow.. (no "Stopped"?)
-	cat .status
+	pegasus-analyzer work
 	exit 2
 fi
 if [ "$jobstate" == "COMPLETED" ]; then
