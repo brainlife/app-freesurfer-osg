@@ -81,8 +81,3 @@ pegasus-plan \
     --cluster horizontal \
     --submit
 
-echo "sleeping a bit - so that status.sh works"
-sleep 10
-
-./status.sh
-

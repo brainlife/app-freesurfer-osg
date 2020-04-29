@@ -17,7 +17,8 @@ if [ -f stopped ]; then
     exit 3
 fi
 
-pegasus-status -l work -D s > .status
+pegasus-status -l work -D s > .status || exit 3
+
 jobstate=$(cat .status | tail -2  | head -1)
 if [ -z "$jobstate" ]; then
 	exit 2 #removed?
@@ -41,7 +42,7 @@ if [ "$jobstate" == "Failure" ]; then
 	pegasus-analyzer work
 	exit 2
 fi
-if [ "$jobstate" == "COMPLETED" ]; then
+if [ "$jobstate" == "Success" ]; then
 	touch finished
 	tar -xf subject_output.tar.bz2
 	exit 1
@@ -51,6 +52,6 @@ fi
 #'ERROR'
 #'FAILED',
 
-echo "can't determine the status!"
+echo "can't determine the status! $jobstate"
 exit 3
 
