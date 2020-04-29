@@ -43,6 +43,7 @@ if [ "$jobstate" == "Failure" ]; then
 fi
 if [ "$jobstate" == "COMPLETED" ]; then
 	touch finished
+	tar -xf subject_output.tar.bz2
 	exit 1
 fi
 
