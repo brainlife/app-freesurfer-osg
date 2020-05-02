@@ -35,7 +35,8 @@ if [ "$jobstate" == "Success" ]; then
 	touch finished
 	tar -xf subject_output.tar.bz2
 	mkdir -p freesufer
-	mv subject freesurfer
+	mv subject freesurfer/output
+	rm subject_output.tar.bz2
 	exit 1
 fi
 echo "can't determine the status! $jobstate"
