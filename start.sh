@@ -14,7 +14,7 @@ export WORK_DIR=$(realpath .)
 envsubst < sites.xml.template > sites.xml
 
 cat <<EOF > run.yml
-subject:
+output:
     input: $(jq -r .t1 config.json)
 EOF
 
