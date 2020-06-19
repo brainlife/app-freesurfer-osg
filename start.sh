@@ -61,6 +61,9 @@ fi
 if [ "$options" != "" ]; then
 	echo "    autorecon-options:$options" >> run.yml
 fi
+if [ $hippocampal == "true" ]; then
+	echo "    hippocampal-subfields: True" >> run.yml
+fi
 
 echo "submitting with this this config"
 cat run.yml
