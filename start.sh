@@ -28,6 +28,7 @@ notalcheck=`jq -r .notalcheck config.json`
 cw256=`jq -r .cw256 config.json`
 debug=`jq -r .debug config.json`
 hippocampal=`jq -r .hippocampal config.json`
+version=`jq -r .version config.json`
 
 options=""
 #I am not sure how we can pass the t2 path like this with freesurfer-osg
@@ -65,7 +66,7 @@ echo "submitting with this this config"
 cat run.yml
 
 # generate the workflow
-./workflow-generator.py --inputs-def run.yml
+./workflow-generator.py --version $version --inputs-def run.yml
 
 # make sure we also have access to the AMQP lib
 export PYTHONPATH="$PYTHONPATH:/usr/lib/python2.6/site-packages"
@@ -73,6 +74,7 @@ export PYTHONPATH="$PYTHONPATH:/usr/lib/python2.6/site-packages"
 # plan and submit the  workflow
 pegasus-plan \
     --conf pegasus.conf \
+    -f \
     --dir $PWD \
     --relative-dir work \
     --sites condorpool \
