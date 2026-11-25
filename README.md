@@ -10,7 +10,7 @@
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-lightgrey.svg" alt="MIT license"></a>
 </p>
 
-## 🧠 At a glance
+## At a glance
 
 <!-- brainlife-app:begin (generated from the App manifest; edit the manifest, not this block) -->
 
@@ -20,25 +20,25 @@ Uses ABCD start/status/stop hooks to submit a Pegasus workflow to the Open Scien
 
 | | |
 |---|---|
-| 📥 **Inputs** | `neuro/anat/t1w` · `neuro/anat/t2w` (optional) |
-| 📤 **Outputs** | `neuro/freesurfer` |
-| 🔗 **Run it** | [doi.org/10.25663/brainlife.app.268](https://doi.org/10.25663/brainlife.app.268) |
+| **Inputs** | `neuro/anat/t1w` · `neuro/anat/t2w` (optional) |
+| **Outputs** | `neuro/freesurfer` |
+| **Run it** | [doi.org/10.25663/brainlife.app.268](https://doi.org/10.25663/brainlife.app.268) |
 
-#### 📥 Inputs
+#### Inputs
 
 | Input | Datatype | Required | Description |
 |---|---|---|---|
 | `t1` | `neuro/anat/t1w` | yes | Whole-head T1-weighted image to reconstruct. Submillimetre images need the hires parameter; a field of view over 256 mm needs cw256. |
 | `t2` | `neuro/anat/t2w` | no | Optional T2-weighted image of the same subject, passed to recon-all to refine the pial surface. |
 
-#### 📤 Outputs
+#### Outputs
 
 | Output | Datatype | Description |
 |---|---|---|
 | `freesurfer` | `neuro/freesurfer` | FreeSurfer subject directory (mri, surf, label, stats, scripts) produced by recon-all. |
 
 <details>
-<summary><b>⚙️ Parameters</b> (6)</summary>
+<summary><b>Parameters</b> (6)</summary>
 
 | Parameter | Type | Default | Description |
 |---|---|---|---|
@@ -53,7 +53,7 @@ Uses ABCD start/status/stop hooks to submit a Pegasus workflow to the Open Scien
 
 <!-- brainlife-app:end -->
 
-## 🏷️ Versions on brainlife.io
+## Versions on brainlife.io
 
 | Version | Branch | Run it | Status |
 |---|---|---|---|
@@ -62,7 +62,7 @@ Uses ABCD start/status/stop hooks to submit a Pegasus workflow to the Open Scien
 
 OSG no longer supports the *fsurf* service; this Pegasus workflow replaces it.
 
-## 🔬 How it works
+## How it works
 
 This is a [Pegasus](https://pegasus.isi.edu/) workflow for running FreeSurfer on the [Open Science Grid](https://osg-htc.org/) (OSG). Instead of a single `main` script, the App uses ABCD `start`, `status` and `stop` hooks (see `package.json`):
 
@@ -72,9 +72,9 @@ This is a [Pegasus](https://pegasus.isi.edu/) workflow for running FreeSurfer on
 
 The workflow splits recon-all into steps (`scripts/autorecon1.sh`, `autorecon2.sh`, `autorecon3.sh`, …) and uses multicore jobs where appropriate.
 
-## 🚀 Running the App
+## Running the App
 
-### ☁️ On brainlife.io
+### On brainlife.io
 
 Open the App at [doi.org/10.25663/brainlife.app.268](https://doi.org/10.25663/brainlife.app.268), choose a T1-weighted dataset (and optionally a T2-weighted one) from your project, set the options and press **Execute**. The App only runs on resources where OSG submission is configured. The FreeSurfer subject directory is archived to your project as a `neuro/freesurfer` dataset.
 
@@ -137,7 +137,7 @@ To run the brainlife.io hooks yourself on an OSG submit host, export your licens
 }
 ```
 
-## 📦 Outputs
+## Outputs
 
 `freesurfer/output/` is a standard FreeSurfer subject directory:
 
@@ -150,13 +150,13 @@ freesurfer/output/
 └── surf/      white, pial, inflated and sphere surfaces
 ```
 
-## 🩺 Troubleshooting
+## Troubleshooting
 
 - **`ERROR: Talairach failed`**: set `notalcheck` to skip the Talairach check, and make sure the image is well aligned to the three primary axes.
 - **`Please set FREESURFER_LICENSE in .bashrc`**: the hooks need your FreeSurfer license in the `FREESURFER_LICENSE` environment variable.
 - **Questions about OSG Connect**: contact [OSG Connect Support](https://osgconnect.net).
 
-## 📚 Citing
+## Citing
 
 > [!TIP]
 > If you use this App in your work, please cite the App, the software it builds on and brainlife.io (below). GitHub's **Cite this repository** button gives the App citation in APA and BibTeX.
@@ -166,13 +166,13 @@ freesurfer/output/
 - Hayashi S, Caron BA, Heinsfeld AS, et al. brainlife.io: a decentralized and open-source cloud platform to support neuroscience research. *Nature Methods* 21:809–813 (2024). [doi:10.1038/s41592-024-02237-2](https://doi.org/10.1038/s41592-024-02237-2)
 - Avesani P, McPherson B, Hayashi S, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. *Scientific Data* 6:69 (2019). [doi:10.1038/s41597-019-0073-y](https://doi.org/10.1038/s41597-019-0073-y)
 
-## 👥 Authors
+## Authors
 
 - Soichi Hayashi
 
 This is a community-driven effort: feel free to fork the repository and open pull requests with improvements you want to share.
 
-## 💰 Funding
+## Funding
 
 [![Wellcome-226486/Z/22/Z](https://img.shields.io/badge/Wellcome-226486%2FZ%2F22%2FZ-purple.svg)](https://wellcome.org/)
 [![NIH-NINDS-U24NS140384](https://img.shields.io/badge/NIH_NINDS-U24NS140384-green.svg)](https://reporter.nih.gov/project-details/11261037)
@@ -191,6 +191,6 @@ This is a community-driven effort: feel free to fork the repository and open pul
 
 <sub>brainlife.io is publicly funded, and acknowledging that support helps keep it running. This App was developed with support from Wellcome, the U.S. National Institutes of Health (including the BRAIN Initiative BRAIN CONNECTS program: The Axonal Projectome EXchange, U24NS140384, and the Center for Mesoscale Connectomics, UM1NS132207) and the U.S. National Science Foundation.</sub>
 
-## ⚖️ License
+## License
 
 This repository does not include a license file. FreeSurfer is distributed under its own [license](https://surfer.nmr.mgh.harvard.edu/fswiki/FreeSurferSoftwareLicense).
