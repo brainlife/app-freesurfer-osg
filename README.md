@@ -1,5 +1,33 @@
 # FreeSurfer workflow for Open Science Grid
 
+<!-- brainlife-app:begin (generated from the App manifest; edit the manifest, not this block) -->
+
+**Runs FreeSurfer recon-all on a T1-weighted image (optionally with a T2w) as a Pegasus workflow on the Open Science Grid, producing a FreeSurfer subject directory.**
+
+Uses ABCD start/status/stop hooks to submit a Pegasus workflow to the Open Science Grid that runs recon-all with the selected FreeSurfer version and options (hires, notalcheck, cw256, debug, optional hippocampal subfields). Use it to offload FreeSurfer reconstruction to OSG resources; it needs a FreeSurfer license and only runs where OSG submission is configured.
+
+Run it on brainlife.io: [https://doi.org/10.25663/brainlife.app.268](https://doi.org/10.25663/brainlife.app.268)
+
+| Input | Datatype | Required | Description |
+|---|---|---|---|
+| `t1` | `neuro/anat/t1w` | yes | Whole-head T1-weighted image to reconstruct. Submillimetre images need the hires parameter; a field of view over 256 mm needs cw256. |
+| `t2` | `neuro/anat/t2w` | no | Optional T2-weighted image of the same subject, passed to recon-all to refine the pial surface. |
+
+| Output | Datatype | Description |
+|---|---|---|
+| `freesurfer` | `neuro/freesurfer` | FreeSurfer subject directory (mri, surf, label, stats, scripts) produced by recon-all. |
+
+| Parameter | Type | Default | Description |
+|---|---|---|---|
+| `version` | enum | `6.0.1` | Freesurfer version to use Options: `6.0.0`, `6.0.1`. |
+| `hires` | boolean | `false` | Check this flag if your input t1 has voxel sizes less than 1mm3 (submillimeter resolution) like HCP 7T. (HCP 3T is 1.25mm). The processing will take a significantly longer time. See https://surfer.nmr.mgh.harvard.edu/fswiki/SubmillimeterRecon |
+| `notalcheck` | boolean | `false` | If you are seeing "ERROR: Talairach failed", you might be able to work around this by setting this option so that freesurfer will skip this process. If you set this option, you will need to make sure that your image is well aligned to the 3 primary axis. |
+| `cw256` | boolean | `false` | If a scan has a field-of-view (FOV) greater than 256, check this to force the FOV to 256. You often need to do this for image with sub 1mm voxel size (like HCP 7T) |
+| `hippocampal` | boolean | `false` | (only for >7) Generate an automated segmentation of the hippocampal subfields based on a statistical atlas built primarily upon ultra-high resolution (~0.1 mm isotropic) ex vivo MRI data. This new method can take advantage high-resolution, dedicated images when available (typically, but not necessarily, T2 weighted), and solves a number of limitations of the in vivo atlas that was distributed with FreeSurfer 5.1-5.3, namely |
+| `debug` | boolean | `false` | Turn on copious amount of freesurfer log |
+
+<!-- brainlife-app:end -->
+
 This is a Pegasus workflow for running FreeSurfer on the Open Science Grid, and replaces the *fsurf* service. The workflow is set up to take a directory with `.mgz` files as input and process each subject in parallel, using multicore jobs where appropriate.
 
 Please run the workflow from your [OSG Connect](https://osgconnect.net/) account. Anybody with a U.S. research affiliation can get access.
